@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Pets List{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Pet Details</h1>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>Photo</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{pet.name}}</td>
+                    <td>{{pet.species}}</td>
+                    <td><img src="{{pet.photo_url}}" alt="Pet photo" class="img-fluid"></td>
+                    <td>{{pet.age}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+  
+  <form id="pet-edit-form" method="POST">
+    {{ form.hidden_tag() }} <!--add type=hidden form fields -->
+  
+    {% for field in form
+           if field.widget.input_type != 'hidden' %}
+  
+      <p>
+        <div class="form-group">
+        {{ field.label }}
+        {{ field(class_="form-control") }}
+  
+        {% for error in field.errors %}
+            <small class="err">
+                {{ error }}
+            </small>  
+        {% endfor %}
+      </div>
+      </p>
+  
+    {% endfor %}
+  
+    <button type="submit" class="btn btn-success">Save</button>
+  </form>
+</div>
+{% endblock %}
